@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'StarJedi';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/StarJedi.woff) format('woff');
+  }
+  @font-face {
+    font-family: 'StarJediHollow';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/StarJediHollow.woff) format('woff');
+  }
+  @font-face {
+    font-family: 'StarJediRounded';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(fonts/StarJediRounded.woff) format('woff');
+  }
+}
