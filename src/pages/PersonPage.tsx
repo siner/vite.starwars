@@ -52,7 +52,7 @@ const PersonPage = () => {
   )
 
   return (
-    <div className="w-1/3">
+    <div className="w-full md:w-1/3">
       <div className="flex justify-end mb-5">
         <a
           href="/"
