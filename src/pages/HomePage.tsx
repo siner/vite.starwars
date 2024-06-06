@@ -1,4 +1,5 @@
 import { gql, useQuery } from 'urql'
+import Spinner from '../components/spinner'
 
 const query = gql`
   query Home {
@@ -16,7 +17,7 @@ const query = gql`
 const HomePage = () => {
   const [data] = useQuery({ query })
 
-  if (data.fetching) return <div>Fetching...</div>
+  if (data.fetching) return <Spinner />
   if (data.error) return <div>Error!</div>
 
   return (
