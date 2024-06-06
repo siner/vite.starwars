@@ -20,7 +20,7 @@ const HomePage = () => {
   if (data.error) return <div>Error!</div>
 
   return (
-    <div className="h-screen flex flex-col space-y-10 pt-10 items-center justify-start font-starjedi">
+    <>
       <h1 className="text-4xl lg:text-6xl text-starwarsyellow font-starjedihollow">
         People
       </h1>
@@ -36,7 +36,7 @@ const HomePage = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

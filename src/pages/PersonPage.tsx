@@ -23,14 +23,14 @@ const PersonPage = () => {
   if (data.error) return <div>Error!</div>
 
   return (
-    <div className="h-screen flex flex-col space-y-10 pt-10 items-center justify-start">
+    <>
       <h1 className="text-4xl text-starwarsyellow font-starjedi">
         {data.data.person.name}
       </h1>
       <p>Height: {data.data.person.height}</p>
       <p>Mass: {data.data.person.mass}</p>
       <p>Homeworld: {data.data.person.homeworld.name}</p>
-    </div>
+    </>
   )
 }
 
