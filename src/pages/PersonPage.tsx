@@ -3,6 +3,7 @@ import { gql, useQuery } from 'urql'
 import Spinner from '../components/spinner'
 import { useState } from 'react'
 import Film from '../components/film'
+import Button from '../components/button'
 
 const query = gql`
   query Person($personId: ID!) {
@@ -85,20 +86,19 @@ const PersonPage = () => {
         <Film film={allFilms[currentFilm]} />
 
         <div className="flex space-x-10 justify-between flex-wrap">
-          <button
-            className="bg-starwarsyellow text-black px-4 py-2 rounded-md disabled:bg-gray-400 disabled:text-gray-800 disabled:cursor-not-allowed"
+          <Button
             disabled={currentFilm === 0}
             onClick={() => setCurrentFilm((currentFilm - 1) % allFilms.length)}
           >
             Previous
-          </button>
-          <button
-            className="bg-starwarsyellow text-black px-4 py-2 rounded-md last:justify-end disabled:bg-gray-400 disabled:text-gray-800 disabled:cursor-not-allowed"
+          </Button>
+
+          <Button
             disabled={currentFilm === allFilms.length - 1}
             onClick={() => setCurrentFilm((currentFilm + 1) % allFilms.length)}
           >
             Next
-          </button>
+          </Button>
         </div>
       </div>
     </div>
