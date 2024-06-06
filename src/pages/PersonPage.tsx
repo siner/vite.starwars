@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { gql, useQuery } from 'urql'
 import Spinner from '../components/spinner'
+import { useState } from 'react'
+import Film from '../components/film'
 
 const query = gql`
   query Person($personId: ID!) {
@@ -34,6 +36,8 @@ const PersonPage = () => {
 
   const [data] = useQuery({ query, variables: { personId: personId } })
 
+  const [currentFilm, setCurrentFilm] = useState(0)
+
   if (data.fetching) return <Spinner />
   if (data.error) return <div>Error!</div>
 
@@ -47,40 +51,57 @@ const PersonPage = () => {
     {}
   )
 
-  const films = allFilms.map((film: any) => (
-    <div key={film.id}>
-      <h2>{film.title}</h2>
-      <p>Release Date: {film.releaseDate}</p>
-      {
-        film.planetConnection.planets.filter((planet: any) => {
-          return planet.surfaceWater <= 0
-        }).length
-      }{' '}
-      planets without water
-    </div>
-  ))
-
   return (
-    <>
-      <h1 className="text-4xl text-starwarsyellow font-starjedi">
+    <div className="w-1/3">
+      <div className="flex justify-end mb-5">
+        <a
+          href="/"
+          className="text-starwarsyellow hover:text-starwarsyellow hover:underline"
+        >
+          Back to Home
+        </a>
+      </div>
+      <h1 className="text-4xl text-starwarsyellow font-starjedihollow text-center mb-10">
         {data.data.person.name}
       </h1>
-      <p>Birth Year: {data.data.person.birthYear}</p>
-      {data.data.person.species && (
-        <p>
-          Average Height of Species: {data.data.person.species.averageHeight}
-        </p>
-      )}
-      <strong>Producers:</strong>
-      <ul>
-        {Object.keys(allProducers).map((producer) => (
-          <li key={producer}>
-            {producer} ({allProducers[producer]})
-          </li>
-        ))}
-      </ul>
-      {films}
-    </>
+      <div className="flex flex-col space-y-4">
+        <p>Birth Year: {data.data.person.birthYear}</p>
+        {data.data.person.species && (
+          <p>
+            Average Height of Species:{' '}
+            {data.data.person.species.averageHeight || 'unknown'}
+          </p>
+        )}
+        <h2 className="text-starwarsyellow text-2xl">Producers:</h2>
+        <ul>
+          {Object.keys(allProducers).map((producer) => (
+            <li key={producer}>
+              {producer} ({allProducers[producer]})
+            </li>
+          ))}
+        </ul>
+        <h2 className="text-starwarsyellow text-2xl">Films:</h2>
+
+        <Film film={allFilms[currentFilm]} />
+
+        <div className="flex space-x-10 justify-between flex-wrap">
+          <button
+            className="bg-starwarsyellow text-black px-4 py-2 rounded-md disabled:bg-gray-400 disabled:text-gray-800 disabled:cursor-not-allowed"
+            disabled={currentFilm === 0}
+            onClick={() => setCurrentFilm((currentFilm - 1) % allFilms.length)}
+          >
+            Previous
+          </button>
+          <button
+            className="bg-starwarsyellow text-black px-4 py-2 rounded-md last:justify-end disabled:bg-gray-400 disabled:text-gray-800 disabled:cursor-not-allowed"
+            disabled={currentFilm === allFilms.length - 1}
+            onClick={() => setCurrentFilm((currentFilm + 1) % allFilms.length)}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 

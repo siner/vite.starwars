@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider value={client}>
-      <div className="h-screen flex flex-col space-y-10 pt-10 items-center justify-start font-starjedi">
+      <div className="h-screen flex flex-col space-y-10 pt-10 items-center justify-start">
         <RouterProvider router={router} />
       </div>
     </Provider>

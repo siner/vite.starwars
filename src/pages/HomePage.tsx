@@ -25,7 +25,7 @@ const HomePage = () => {
       <h1 className="text-4xl lg:text-6xl text-starwarsyellow font-starjedihollow">
         People
       </h1>
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 font-starjedirounded">
         {data.data.allPeople.edges.map((edge: any) => (
           <div key={edge.node.id}>
             <a
