@@ -3,7 +3,7 @@ import Films from './films'
 import { getPersonFilms, getPersonProducers } from '../services/person'
 import Producers from './producers'
 
-export default function PersonInfo({ person }: { person: Person }) {
+const PersonInfo = ({ person }: { person: Person }) => {
   const allFilms = getPersonFilms(person)
   const producers = getPersonProducers(allFilms)
 
@@ -18,8 +18,9 @@ export default function PersonInfo({ person }: { person: Person }) {
           Average Height of Species: {person.species.averageHeight || 'unknown'}
         </p>
       )}
-      <Producers producers={producers} />
-      <Films films={allFilms} />
+      {producers && <Producers producers={producers} />}
+      {allFilms.length > 0 && <Films films={allFilms} />}
     </div>
   )
 }
+export default PersonInfo
