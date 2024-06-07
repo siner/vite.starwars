@@ -1,24 +1,12 @@
-import { gql, useQuery } from 'urql'
-import Spinner from '../components/spinner'
-
-const query = gql`
-  query Home {
-    allPeople {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
-  }
-`
+import Spinner from '../components/ui/spinner'
+import { useFetchPersons } from '../hooks/useFetchPersons'
 
 const HomePage = () => {
-  const [data] = useQuery({ query })
+  const { persons, isFetching, error } = useFetchPersons()
 
-  if (data.fetching) return <Spinner />
-  if (data.error) return <div>Error!</div>
+  if (isFetching) return <Spinner />
+  if (error) return <div>Error!</div>
+  if (!persons) return <div>No persons!</div>
 
   return (
     <>
@@ -26,13 +14,13 @@ const HomePage = () => {
         People
       </h1>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4 font-starjedirounded mb-10">
-        {data.data.allPeople.edges.map((edge: any) => (
-          <div key={edge.node.id}>
+        {persons.map((person: any) => (
+          <div key={person.id}>
             <a
-              href={'/person/' + edge.node.id}
+              href={'/person/' + person.id}
               className="hover:text-starwarsyellow hover:underline"
             >
-              {edge.node.name}
+              {person.name}
             </a>
           </div>
         ))}
